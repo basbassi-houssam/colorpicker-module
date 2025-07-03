@@ -1,0 +1,19 @@
+#!/bin/bash
+
+sleep 0.5  # Let go of mouse grab
+color=$(xcolor)
+
+if [ -n "$color" ]; then
+    # Copy to clipboard without newline
+    printf "%s" "$color" | xclip -selection clipboard
+
+    # Generate tiny circle image
+    img_file="/tmp/color_circle.png"
+    convert -size 40x40 xc:none -fill "$color" -draw "circle 16,16 16,0" "$img_file"
+
+    # Show notification with image
+    notify-send "🎨 Color Picked" "$color" -i "$img_file"
+
+else
+    notify-send "🎨 Error" "Failed to pick color! (Is xcolor installed?)"
+fi

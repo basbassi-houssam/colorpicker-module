@@ -1,0 +1,13 @@
+#!/bin/bash
+
+sleep 0.5
+color=$(xcolor)
+
+if [ -n "$color" ]; then
+    # Copy to clipboard
+    echo "$color" | xclip -selection clipboard
+    # Show notification with color preview
+    notify-send "🎨 Color Picked" "$color"
+else
+    notify-send "🎨 Error" "Failed to pick color!"
+fi
